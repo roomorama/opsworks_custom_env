@@ -6,8 +6,12 @@
 # Notifies a "restart Rails app <name>" resource.
 
 define :custom_env_template do
+  Chef::Log.debug("Creating custom env template definition with: #{params.inspect}")
+  
+  application = params[:app]
+  deploy = params[:deploy_data]
 
-  template "#{deploy[:deploy_to]}/shared/config/.env.#{params[:deploy][:rails_env]}" do
+  template "#{deploy[:deploy_to]}/shared/config/.env.#{deploy[:rails_env]}" do
     source ".env.erb"
     owner params[:deploy][:user]
     group params[:deploy][:group]
