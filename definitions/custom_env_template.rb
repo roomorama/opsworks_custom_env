@@ -7,7 +7,7 @@
 
 define :custom_env_template do
   
-  template "#{params[:deploy][:deploy_to]}/shared/config/application.yml" do
+  template "#{params[:deploy][:deploy_to]}/shared/config/.env.#{deploy[:rails_env]}" do
     source "application.yml.erb"
     owner params[:deploy][:user]
     group params[:deploy][:group]

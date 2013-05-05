@@ -8,7 +8,7 @@ if node[:opsworks][:instance][:layers].include?('rails-app')
     
     execute "restart Rails app #{application}" do
       cwd deploy[:current_path]
-      command "#{deploy[:deploy_to]}/shared/scripts/unicorn restart"
+      command "cd #{deploy[:deploy_to]} && #{node[:opsworks][:rails_stack][:restart_command]}"
       action :nothing
     end
     
