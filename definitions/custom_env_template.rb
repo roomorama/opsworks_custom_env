@@ -6,16 +6,16 @@
 # Notifies a "restart Rails app <name>" resource.
 
 define :custom_env_template do
-  
-  template "#{params[:deploy][:current_path]}/.env.#{params[:deploy][:rails_env]}" do
-    source ".env.yml.erb"
+
+  template "#{deploy[:deploy_to]}/shared/config/.env.#{params[:deploy][:rails_env]}" do
+    source ".env.erb"
     owner params[:deploy][:user]
     group params[:deploy][:group]
     mode "0660"
     variables :env => params[:env]
     notifies :run, resources(:execute => "restart Rails app #{params[:application]}")
 
-    only_if { File.exists?("#{params[:deploy][:current_path]}") }
+    only_if { File.exists?("#{deploy[:deploy_to]}/shared/config") }
   end
-  
+
 end
