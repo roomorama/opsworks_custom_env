@@ -16,7 +16,7 @@ define :custom_env_template do
     owner deploy['user']
     group deploy['group']
     mode "0660"
-    variables :env => params[:env]
+    variables :env => params[:env] || {}
     notifies :run, resources(:execute => "restart Rails app #{params[:application]}")
 
     only_if { File.exists?("#{deploy['deploy_to']}/shared/config") }
